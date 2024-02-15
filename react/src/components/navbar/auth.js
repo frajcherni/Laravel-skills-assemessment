@@ -35,6 +35,7 @@ function Auth() {
             <Button color="inherit" component={Link} to="/dashboard">
 Dashboard            </Button>
             <Button color="inherit" onClick={logoutUser}>Logout</Button>
+            {/* Render "Panier" only for non-admin users */}
             <Button color="inherit" component={Link} to="/panier">
               Panier
             </Button>
