@@ -11,6 +11,10 @@ import AddCategory from '../../pages/AddCategory';
 import OrderLists from '../../pages/OrderLists';
 import Panier from '../panier';
 import Dashboard from '../dashboard';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import HomeIcon from '@mui/icons-material/Home';
+import LogoutIcon from '@mui/icons-material/Logout';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 function Auth() {
   const { token, logout, user } = AuthUser();
@@ -30,14 +34,17 @@ function Auth() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             </Typography>
             <Button color="inherit" component={Link} to="/">
-              Shop
+              <HomeIcon /> Shop
             </Button>
             <Button color="inherit" component={Link} to="/dashboard">
-Dashboard            </Button>
-            <Button color="inherit" onClick={logoutUser}>Logout</Button>
+              <DashboardIcon /> Dashboard
+            </Button>
+            <Button color="inherit" onClick={logoutUser}>
+              <LogoutIcon /> Logout
+            </Button>
             {/* Render "Panier" only for non-admin users */}
             <Button color="inherit" component={Link} to="/panier">
-              Panier
+              <ShoppingCartIcon /> Panier
             </Button>
           </Toolbar>
         </AppBar>

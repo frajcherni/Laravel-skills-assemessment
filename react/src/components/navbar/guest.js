@@ -6,15 +6,16 @@ import Register from '../register';
 import AuthUser from '../AuthUser';
 import { AppBar, Toolbar, Typography, Button } from '@mui/material';
 import Panier from '../panier';
-import PanierPage from '../PanierPage';
-import useCart from '../useCart'; // Import the useCart hook
+import useCart from '../useCart';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import HomeIcon from '@mui/icons-material/Home';
+import LoginIcon from '@mui/icons-material/Login';
+import RegisterIcon from '@mui/icons-material/HowToReg';
 
-import { useState } from 'react';
 function Guest() {
   const { getToken } = AuthUser();
   const isLoggedIn = getToken();
-
-  const { cart, addToCart } = useCart(); // Use the useCart hook
+  const { cart, addToCart } = useCart();
 
   return (
     <>
@@ -24,29 +25,26 @@ function Guest() {
             FRAJ Shop
           </Typography>
           <Button color="inherit" component={Link} to="/">
-            Shop
+            <HomeIcon /> Home
           </Button>
           <Button color="inherit" component={Link} to="/login">
-            Login
+            <LoginIcon /> Login
           </Button>
           <Button color="inherit" component={Link} to="/register">
-            Register
+            <RegisterIcon /> Register
           </Button>
           <Button color="inherit" component={Link} to="/panier">
-            Panier
+            <ShoppingCartIcon /> Panier
           </Button>
-      
         </Toolbar>
       </AppBar>
       <div className="container">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home addToCart={addToCart} />} />
-
-          <Route path="/login" element={<Login  />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/panier" element={<Panier cart={cart} />} />
-
         </Routes>
       </div>
     </>
