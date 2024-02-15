@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import {
   Typography,
-  List,
-  ListItem,
   Button,
   Card,
   CardContent,
@@ -38,16 +36,14 @@ const Panier = () => {
       if (isNaN(newQuantity)) {
         throw new Error('Invalid quantity value');
       }
-  
-      console.log('newQuantity:', newQuantity);
-  
+
       const response = await axios.put(
         `http://localhost:8000/api/products/${productId}/updateQuantity`,
         { quantite: newQuantity },
       );
-  
+
       console.log('API response:', response.data);
-  
+
       if (!response.data.success) {
         throw new Error('Failed to update product quantity');
       }
@@ -56,14 +52,12 @@ const Panier = () => {
       // Handle errors if necessary
     }
   };
-  
 
   const handlePurchase = async () => {
     try {
       // Calculate the total amount
       const totalAmount = cart.reduce((total, item) => total + item.prix * item.cartQuantity, 0);
 
-      // Calculate discount if total is more than $100
       const discount = totalAmount > 100 ? 0.25 * totalAmount : 0;
 
       const success = await insertOrder(user.id, cart, getToken(), totalAmount, discount);
@@ -78,14 +72,12 @@ const Panier = () => {
       }
     } catch (error) {
       console.error('Error handling purchase:', error);
-      // Handle errors if necessary
     }
   };
 
   // Calculate the total amount
   const totalAmount = cart.reduce((total, item) => total + item.prix * item.cartQuantity, 0);
 
-  // Calculate discount if total is more than $100
   const discount = totalAmount > 100 ? 0.25 * totalAmount : 0;
 
   return (
@@ -93,9 +85,11 @@ const Panier = () => {
       style={{
         marginTop: '20px',
         width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
       }}
     >
-      <Card sx={{ maxWidth: 400 }}>
+      <Card sx={{ maxWidth: 600 }}>
         <CardContent>
           <Typography variant="h5" gutterBottom>
             Shopping Cart
@@ -119,19 +113,21 @@ const Panier = () => {
                       <Typography>{item.nom}</Typography>
                     </td>
                     <td>
-                      <Typography>${item.prix}</Typography>
+                      <Typography>{item.prix} DT</Typography>
                     </td>
-              
                     <td>
                       <Typography>
                         <Button
+                          size="small"
                           disabled={item.cartQuantity <= 1}
                           onClick={() => updateQuantity(item.id, item.cartQuantity - 1)}
                         >
                           -
                         </Button>
                         {item.cartQuantity}
-                        <Button onClick={() => updateQuantity(item.id, item.cartQuantity + 1)}>+</Button>
+                        <Button size="small" onClick={() => updateQuantity(item.id, item.cartQuantity + 1)}>
+                          +
+                        </Button>
                       </Typography>
                     </td>
                     <td>
@@ -141,13 +137,13 @@ const Panier = () => {
                 ))}
                 <tr>
                   <td colSpan="2">Total:</td>
-                  <td>${totalAmount.toFixed(2)}</td>
+                  <td>{totalAmount.toFixed(2)} DT</td>
                   <td></td>
                 </tr>
                 {totalAmount > 100 && (
                   <tr>
                     <td colSpan="2">Discount:</td>
-                    <td>- ${discount.toFixed(2)}</td>
+                    <td>- {discount.toFixed(2)} DT</td>
                     <td></td>
                   </tr>
                 )}
@@ -175,8 +171,8 @@ const Panier = () => {
         open={isSnackbarOpen}
         autoHideDuration={4000}
         onClose={handleSnackbarClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'top' }} // Position on the top-right
-        sx={{ marginTop: '10px' }} // Adjust top margin
+        anchorOrigin={{ vertical: 'top', horizontal: 'top' }}
+        sx={{ marginTop: '10px' }}
       >
         <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '300px', height: '70px' }}>
           Purchase successful! 🎉

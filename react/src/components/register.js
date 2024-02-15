@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthUser from './AuthUser';
-import { TextField, Button, Typography, Container, CssBaseline } from '@mui/material';
+import { TextField, Button, Typography, Container, CssBaseline, Select, MenuItem, InputLabel } from '@mui/material';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ export default function Register() {
 
   const submitForm = () => {
     // api call
-    http.post('/register', { email: email, password: password}).then((res) => {
+    http.post('/register', { email: email, password: password, UserType: UserType }).then((res) => {
       navigate('/login');
     });
   };
@@ -25,7 +25,6 @@ export default function Register() {
           Register
         </Typography>
         <div>
-         
           <TextField
             variant="outlined"
             margin="normal"
@@ -34,6 +33,20 @@ export default function Register() {
             label="User Name"
             onChange={(e) => setEmail(e.target.value)}
           />
+          <InputLabel id="user-type-label">User Type</InputLabel>
+          <Select
+            labelId="user-type-label"
+            id="user-type"
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            value={UserType}
+            onChange={(e) => setUserType(e.target.value)}
+          >
+            <MenuItem value="admin">Admin</MenuItem>
+            <MenuItem value="client">Client</MenuItem>
+          </Select>
           <TextField
             variant="outlined"
             margin="normal"

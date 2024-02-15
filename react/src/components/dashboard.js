@@ -76,10 +76,11 @@ export default function CustomizedTables() {
 
   return (
     <div style={styles.container}>
-      <div style={styles.heading}>Products List</div>
-      {user && user.email && (
+        {user && user.email && (
         <div>User Email: {user.email}</div>
       )}
+      <div style={styles.heading}>Products List</div>
+    
       <TableContainer component={Paper} style={styles.tableContainer}>
         <Table sx={{ minWidth: 500 }} aria-label="customized table">
           <TableBody>
