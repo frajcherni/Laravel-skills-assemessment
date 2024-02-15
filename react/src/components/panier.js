@@ -162,7 +162,7 @@ const Panier = () => {
             Purchase
           </Button>
           <Link to="/">
-            <Button>Go Shopping</Button>
+            <Button>Go shopping</Button>
           </Link>
         </CardActions>
       </Card>
